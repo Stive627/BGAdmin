@@ -34,7 +34,7 @@ function AddProduct() {
                                                     </div>}
                             </div>
                         </div>
-                        <div className=' flex-2/6 '>
+                        <div className=' flex-1/4'>
                             <p>{width > 400?'Sub-Category':'S.Category'}</p>
                             <div onClick={(e)=>{e.stopPropagation(); setShow({...show, subproduct:!show.subproduct})}} style={{borderColor:'rgba(207, 207, 207, 1)'}} className='h-8 border rounded-sm relative'>
                                 <p className=' pl-1 pt-1'>{product.subCategory}</p>
@@ -44,7 +44,7 @@ function AddProduct() {
                                                     </div>}
                             </div>
                         </div>
-                        <div className=' flex-1/6'>
+                        <div className=' flex-1/4'>
                             <p>Quantity</p>
 
                             <input className=' w-full border rounded-md h-8 outline-none px-1' type={width > 650? 'text':'number'} style={{borderColor:'rgba(207, 207, 207, 1)'}} value={product.quantity} onChange={(e) => setProduct({...product, quantity:e.target.value})}/>
@@ -53,7 +53,7 @@ function AddProduct() {
                     <div className=' flex flex-row w-full gap-3'>
                         <div className=' flex-1/2'>
                             <p>Name</p>
-                           <input value={product.name} onChange={(e)=>setProduct({...product, name:e.target.value})} style={{borderColor:'rgba(207, 207, 207, 1)'}} className=' border w-full h-8 rounded-md outline-none pl-1'/>
+                           <input type={width > 650? 'text':'number'} value={product.name} onChange={(e)=>setProduct({...product, name:e.target.value})} style={{borderColor:'rgba(207, 207, 207, 1)'}} className=' border w-full h-8 rounded-md outline-none pl-1'/>
                         </div>
                         <div className=' flex-1/4'>
                             <p>Price</p>
@@ -81,7 +81,7 @@ function AddProduct() {
                     <div className=' flex flex-row justify-between'>
                         <div><label htmlFor='productImg' ><AttachFileIcon className=' rotate-90' sx={{fontSize:30, color:'rgba(194, 16, 18, 1)'}}/></label><input type='file'  onChange={(e) => setProduct({...product, imgfile:e.target.files})} className=' hidden' id='productImg'/></div>
                         <div className=' flex flex-row gap-3'>
-                            <button style={{borderColor:'rgba(194, 16, 18, 1)', color:'rgba(194, 16, 18, 1)'}} className=' border w-17  py-1 rounded-md'>cancel</button>
+                            <button style={{borderColor:'rgba(194, 16, 18, 1)', color:'rgba(194, 16, 18, 1)'}} className=' border w-17  py-1 rounded-md'>Cancel</button>
                             <button style={{borderColor:'rgba(194, 16, 18, 1)', backgroundColor:'rgba(194, 16, 18, 1)'}} className=' border w-17 py-1 rounded-md text-white'>Add</button>
                         </div>
                     </div>
