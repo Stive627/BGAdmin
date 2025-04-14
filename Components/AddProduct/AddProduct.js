@@ -18,7 +18,7 @@ function AddProduct() {
         }
     }
   return (
-    <div className=' absolute top-0 bottom-0  left-0 right-0 w-screen h-screen' style={{backgroundColor:'rgba(217, 217, 217, 1)'}}>
+    <div className=' absolute top-0 bottom-0  left-0 right-0 w-screen h-screen text-black' style={{backgroundColor:'rgba(217, 217, 217, 1)'}}>
         <div className=' w-full  flex justify-center'>
             <div onClick={()=>handleOnclickContainer()} className=' bg-white  p-2 rounded-lg text-[14px]' style={{width:'500px'}}>
                 <p className='font-semibold text-[21px]'>Add a new product</p>
@@ -37,7 +37,7 @@ function AddProduct() {
                         <div className=' flex-1/4'>
                             <p>{width > 400?'Sub-Category':'S.Category'}</p>
                             <div onClick={(e)=>{e.stopPropagation(); setShow({...show, subproduct:!show.subproduct})}} style={{borderColor:'rgba(207, 207, 207, 1)'}} className='h-8 border rounded-sm relative'>
-                                <p className=' pl-1 pt-1'>{product.subCategory}</p>
+                                <p className=' pl-1 pt-1 w-2/3 overflow-x-scroll'>{product.subCategory}</p>
                                 <button className=' absolute right-0 top-0.5'><KeyboardArrowDownIcon/></button>
                                 {show.subproduct &&   <div  style={{borderColor:'rgba(207, 207, 207, 1)'}} className=' absolute flex flex-col z-20  bg-white w-full border top-8 px-1 rounded-md'>
                                                         {SubCategories.map((elt, indx) => <button onClick={()=>{setProduct({...product, subCategory:elt})}} key={indx}>{elt}</button>)}
