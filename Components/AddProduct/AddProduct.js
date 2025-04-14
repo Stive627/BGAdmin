@@ -78,7 +78,7 @@ function AddProduct() {
                         <button onClick={()=>setProduct({...product, imgfile:''})} className=' absolute right-0 cursor-pointer'><CloseIcon sx={{color:'rgba(194, 16, 18, 1)'}}/></button>
                         <div className=' flex justify-center'> <Image alt='Image of product' width={300} height={300} src={URL.createObjectURL(product.imgfile[0])} /></div>
                     </div>}
-                    <div className=' flex flex-row justify-between'>
+                    <div className=' flex flex-row justify-between items-center'>
                         <div><label htmlFor='productImg' ><AttachFileIcon className=' rotate-90' sx={{fontSize:30, color:'rgba(194, 16, 18, 1)'}}/></label><input type='file'  onChange={(e) => setProduct({...product, imgfile:e.target.files})} className=' hidden' id='productImg'/></div>
                         <div className=' flex flex-row gap-3'>
                             <button style={{borderColor:'rgba(194, 16, 18, 1)', color:'rgba(194, 16, 18, 1)'}} className=' border w-17  py-1 rounded-md'>Cancel</button>
