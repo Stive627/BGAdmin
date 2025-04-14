@@ -53,11 +53,11 @@ function AddProduct() {
                     <div className=' flex flex-row w-full gap-3'>
                         <div className=' flex-1/2'>
                             <p>Name</p>
-                           <input type={width > 650? 'text':'number'} value={product.name} onChange={(e)=>setProduct({...product, name:e.target.value})} style={{borderColor:'rgba(207, 207, 207, 1)'}} className=' border w-full h-8 rounded-md outline-none pl-1'/>
+                           <input type='text'  value={product.name} onChange={(e)=>setProduct({...product, name:e.target.value})} style={{borderColor:'rgba(207, 207, 207, 1)'}} className=' border w-full h-8 rounded-md outline-none pl-1'/>
                         </div>
                         <div className=' flex-1/4'>
                             <p>Price</p>
-                            <input value={product.price} onChange={(e)=>setProduct({...product, price:e.target.value})} style={{borderColor:'rgba(207, 207, 207, 1)'}} className=' border w-full h-8 rounded-md outline-none pl-1'/>
+                            <input type={width > 650? 'text':'number'} value={product.price} onChange={(e)=>setProduct({...product, price:e.target.value})} style={{borderColor:'rgba(207, 207, 207, 1)'}} className=' border w-full h-8 rounded-md outline-none pl-1'/>
                         </div>
                         <div className=' flex-1/4'>
                             <p>Weight</p>
