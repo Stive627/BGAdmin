@@ -6,6 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Image from 'next/image';
 import axios from 'axios';
 import { fetchLink } from '@/functions/fetchLink';
+import CheckIcon from '@mui/icons-material/Check';
 
 function AddProduct() {
     const category = ['Fruits', 'Vegetable', 'Spices', 'Proteins', 'Dairy', 'Beverages']
@@ -15,6 +16,7 @@ function AddProduct() {
     const [loading, setLoading] = useState(false)
     const [product, setProduct] = useState({category:'',subCategory:'', quantity:'', name:'', price:'', weight:'', description:'', imgfile:'' })
     const [show, setShow]=useState({category:false, subproduct:false, quantity:false, weight:false})
+    const [success, setSuccess] = useState(false)
     const validProduct =  product.category && product.subCategory && product.quantity && product.name && product.price && product.weight && product.description && product.imgfile
     const handleOnclickContainer = () => {
         if(show.category || show.subproduct || show.quantity || show.weight){
@@ -35,13 +37,18 @@ function AddProduct() {
         formData.append('quantity', product.quantity)
         formData.append('description', product.description)
         axios({url:fetchLink('products/add'), data:formData, method:'POST'})
-        .then((value) => console.log(value.data))
-        .catch((err) => console.log(err.response.data))
+        .then((value) => {console.log(value.data); setSuccess(true)})
+        .catch((err) => {console.log(err.response.data)})
         .finally(()=> setLoading(false))
     }
   return (
     <div className='w-screen h-screen text-black' style={{backgroundColor:'rgba(217, 217, 217, 1)'}}>
-        <div className=' absolute'></div>
+        {success && <div className=' absolute right-4'>
+                        <div className=' bg-white p-2  gap-3 flex flex-row items-center border rounded-md'>
+                            <CheckIcon className=' rounded-full' sx={{backgroundColor:'red', color:'white'}}/>
+                            <p>The product is successfully added</p>
+                        </div>
+                    </div>}
         <div className=' w-full  flex justify-center'>
             <form onSubmit={handleSubmit} onClick={()=>handleOnclickContainer()} className=' bg-white  p-2 rounded-lg text-[14px]' style={{width:'500px'}}>
                 <p className='font-semibold text-[21px]'>Add a new product</p>
