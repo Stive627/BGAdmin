@@ -7,6 +7,7 @@ import Image from 'next/image';
 import axios from 'axios';
 import { fetchLink } from '@/functions/fetchLink';
 import CheckIcon from '@mui/icons-material/Check';
+import './addProduct.css'
 
 function AddProduct() {
     const category = ['Fruits', 'Vegetable', 'Spices', 'Proteins', 'Dairy', 'Beverages']
@@ -37,21 +38,27 @@ function AddProduct() {
         formData.append('quantity', product.quantity)
         formData.append('description', product.description)
         axios({url:fetchLink('products/add'), data:formData, method:'POST'})
-        .then((value) => {console.log(value.data); setSuccess(true)})
+        .then((value) => {console.log(value.data); handleAnim})
         .catch((err) => {console.log(err.response.data)})
         .finally(()=> setLoading(false))
     }
+    const  handleAnim = () =>{
+        setSuccess(true)
+        setTimeout(() => {
+            setSuccess(false)
+        }, 4000);
+    }
   return (
     <div className='w-screen h-screen text-black' style={{backgroundColor:'rgba(217, 217, 217, 1)'}}>
-        {success && <div className=' absolute right-4'>
+        {success && <div className=' absolute right-4 success'>
                         <div className=' bg-white p-2  gap-3 flex flex-row items-center border rounded-md'>
                             <CheckIcon className=' rounded-full' sx={{backgroundColor:'red', color:'white'}}/>
-                            <p>The product is successfully added</p>
+                            <p >The product is successfully added</p>
                         </div>
                     </div>}
         <div className=' w-full  flex justify-center'>
             <form onSubmit={handleSubmit} onClick={()=>handleOnclickContainer()} className=' bg-white  p-2 rounded-lg text-[14px]' style={{width:'500px'}}>
-                <p className='font-semibold text-[21px]'>Add a new product</p>
+                <p onClick={handleAnim} className='font-semibold text-[21px]'>Add a new product</p>
                 <div className=' flex flex-col gap-2'>
                     <div className=' flex flex-row w-full gap-3'>
                         <div className=' flex-1/2'>

@@ -1,0 +1,20 @@
+.success{
+    animation: successAnim 4000ms linear forwards;
+}
+
+
+@keyframes successAnim {
+    0% {
+        transform: translateY(-45px);
+        
+      }
+    10%{
+        transform: translateY(0px);
+    }
+    50%{
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(-45px);
+      }
+}
