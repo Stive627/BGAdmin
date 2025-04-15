@@ -25,6 +25,14 @@ function AddProduct() {
         }
     }
     const handleCancel = () => setProduct({category:'',subCategory:'', quantity:'', name:'', price:'', weight:'', description:'', imgfile:'' })
+    
+    const  handleAnim = () =>{
+        setSuccess(true)
+        setTimeout(() => {
+            setSuccess(false)
+        }, 4000);
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         setLoading(true)
@@ -38,16 +46,11 @@ function AddProduct() {
         formData.append('quantity', product.quantity)
         formData.append('description', product.description)
         axios({url:fetchLink('products/add'), data:formData, method:'POST'})
-        .then((value) => {console.log(value.data); handleAnim})
+        .then((value) => {console.log(value.data); handleAnim()})
         .catch((err) => {console.log(err.response.data)})
         .finally(()=> setLoading(false))
     }
-    const  handleAnim = () =>{
-        setSuccess(true)
-        setTimeout(() => {
-            setSuccess(false)
-        }, 4000);
-    }
+
   return (
     <div className='w-screen h-screen text-black' style={{backgroundColor:'rgba(217, 217, 217, 1)'}}>
         {success && <div className=' absolute right-4 success'>
