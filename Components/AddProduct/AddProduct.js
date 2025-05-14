@@ -24,14 +24,12 @@ function AddProduct() {
     }
 
     const handleCancel = () => setProduct({category:'',subCategory:'', quantity:'', name:'', price:'', weight:'', description:'', mainImage:'', descriptionImage:'' })
-    
     const  handleAnim = () =>{
         setSuccess(true)
         setTimeout(() => {
             setSuccess(false)
         }, 4000);
     }
-
     function handleDeletePicture(){
         setProduct({...product, mainImage:''})
     }
@@ -41,14 +39,14 @@ function AddProduct() {
         setProduct({...product, descriptionImage:finalDescriptionImages})
     }
     const handleSubmit = (e) => {
+        const descriptionImages = [product.mainImage[0], ...product.descriptionImage]
         e.preventDefault()
         setLoading(true)
         const formData = new FormData()
         formData.append('name', product.name)
         formData.append('newPrice', product.price)
         formData.append('unit', product.weight)
-        formData.append('mainImage', product.mainImage[0]),
-        product.descriptionImage.forEach(element => {
+        descriptionImages.forEach(element => {
         formData.append('descriptionImage', element)
         });
         formData.append('category', product.category)
@@ -66,7 +64,7 @@ function AddProduct() {
         <Toast condition={success} message={'The product is successfully added'}/>
         <div className=' w-full  flex justify-center'>
             <form onSubmit={handleSubmit} onClick={()=>handleOnclickContainer()} className=' bg-white  p-2 rounded-lg text-[14px]' style={{width:'500px'}}>
-                <p onClick={handleAnim} className='font-semibold text-[21px]'>Add a new product</p>
+                <p className='font-semibold text-[21px]'>Add a new product</p>
                 <div className=' flex flex-col gap-2'>
                     <div className=' flex flex-row w-full gap-3 justify-between'>
                         <div className=' w-full'>
