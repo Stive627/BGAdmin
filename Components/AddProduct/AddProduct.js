@@ -122,9 +122,9 @@ function AddProduct() {
                     <div>
                         <p>Main Image</p>
                         {product.mainImage ?
-                            <div style={{borderColor:'rgba(207, 207, 207, 1)'}} className=' w-full h-30 border border-dashed rounded-md flex justify-center items-center'>
-                                <div className=' relative'>
-                                    <Image  width={100} height={100} alt='main' src={URL.createObjectURL(product.mainImage[0])}/>
+                            <div style={{borderColor:'rgba(207, 207, 207, 1)'}} className=' w-full  border border-dashed rounded-md flex justify-center items-center'>
+                                <div className='relative'>
+                                    <Image  width={90} height={90} alt='main' src={URL.createObjectURL(product.mainImage[0])}/>
                                     <button type='button' onClick={handleDeletePicture} className=' absolute w-6 h-6 border rounded-full top-0 right-0 border-gray-500 bg-white flex items-center justify-center cursor-pointer'><CloseIcon sx={{fontSize:18, color:'##6a7282'}}/></button>
                                 </div>
                             </div>
