@@ -2,7 +2,6 @@
     animation: successAnim 4000ms linear forwards;
 }
 
-
 @keyframes successAnim {
     0% {
         transform: translateY(-45px);

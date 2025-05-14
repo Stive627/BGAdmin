@@ -4,25 +4,25 @@ import { useScreen } from '@/hooks/useScreen';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import { fetchLink } from '@/functions/fetchLink';
-import CheckIcon from '@mui/icons-material/Check';
-import './addProduct.css'
 import Image from 'next/image';
+import Toast from '../Toast';
 
 function AddProduct() {
-    const category = ['Fruits', 'Vegetable', 'Spices', 'Proteins', 'Dairy', 'Beverages']
-    const SubCategories = ['Leafy Green', 'Seasonal', 'Root', 'Fruiting', 'Leguminous', 'Newly Added', 'Discounted']
+    const category = ['Fresh Farm', 'Starchy Food']
     const Weights = ['100g', '250g', '500g', '1kg', '2kg']
     const width = useScreen()
     const [loading, setLoading] = useState(false)
     const [product, setProduct] = useState({category:'',subCategory:'', quantity:'', name:'', price:'', weight:'', description:'', mainImage:'', descriptionImage:'' })
-    const [show, setShow]=useState({category:false, subproduct:false, quantity:false, weight:false})
+    const [show, setShow]=useState({category:false, subproduct:false, weight:false})
     const [success, setSuccess] = useState(false)
+    const SubCategories = product.category ? (product.category === category[0]? ['Fruits', 'Vegetable', 'Seasonal'] : ['Root', 'Green Banana', 'Beams']) : []
     const validProduct =  product.category && product.subCategory && product.quantity && product.name && product.price && product.weight && product.description && product.mainImage &&  product.descriptionImage
     const handleOnclickContainer = () => {
         if(show.category || show.subproduct || show.quantity || show.weight){
-            setShow({...show, category:false, subproduct:false, quantity:false, weight:false})
+            setShow({...show, category:false, subproduct:false, weight:false})
         }
     }
+
     const handleCancel = () => setProduct({category:'',subCategory:'', quantity:'', name:'', price:'', weight:'', description:'', mainImage:'', descriptionImage:'' })
     
     const  handleAnim = () =>{
@@ -47,43 +47,41 @@ function AddProduct() {
         formData.append('name', product.name)
         formData.append('newPrice', product.price)
         formData.append('unit', product.weight)
-        formData.append('img', product.mainImage[0])
+        formData.append('mainImage', product.mainImage[0]),
+        product.descriptionImage.forEach(element => {
+        formData.append('descriptionImage', element)
+        });
         formData.append('category', product.category)
         formData.append('subCategory', product.subCategory)
         formData.append('quantity', product.quantity)
         formData.append('description', product.description)
-        // axios({url:fetchLink('products/add'), data:formData, method:'POST'})
-        // .then((value) => {console.log(value.data); handleAnim()})
-        // .catch((err) => {console.log(err.response.data)})
-        // .finally(()=> setLoading(false))
+        axios({url:fetchLink('products/add'), data:formData, method:'POST'})
+        .then((value) => {console.log(value.data); handleAnim()})
+        .catch((err) => {console.log(err.response.data)})
+        .finally(()=> setLoading(false))
         handleAnim()
     }
   return (
     <div className='w-screen h-screen text-black' style={{backgroundColor:'rgba(217, 217, 217, 1)'}}>
-        {success && <div className=' absolute right-4 success'>
-                        <div className=' bg-white p-2  gap-3 flex flex-row items-center border rounded-md'>
-                            <CheckIcon className=' rounded-full' sx={{backgroundColor:'red', color:'white'}}/>
-                            <p >The product is successfully added</p>
-                        </div>
-                    </div>}
+        <Toast condition={success} message={'The product is successfully added'}/>
         <div className=' w-full  flex justify-center'>
             <form onSubmit={handleSubmit} onClick={()=>handleOnclickContainer()} className=' bg-white  p-2 rounded-lg text-[14px]' style={{width:'500px'}}>
                 <p onClick={handleAnim} className='font-semibold text-[21px]'>Add a new product</p>
                 <div className=' flex flex-col gap-2'>
-                    <div className=' flex flex-row w-full gap-3'>
-                        <div className=' flex-1/2'>
+                    <div className=' flex flex-row w-full gap-3 justify-between'>
+                        <div className=' w-full'>
                             <p>Category</p>
-                            <div onClick={(e)=>{e.stopPropagation(); setShow({...show, category:!show.category})}} style={{borderColor:show.category?'rgba(194, 16, 18, 1)':'rgba(207, 207, 207, 1)'}} className=' h-8 border rounded-sm relative'>
+                            <div onClick={(e)=>{e.stopPropagation(); setShow({...show, subproduct:false, weight:false, category:!show.category})}} style={{borderColor:show.category?'rgba(194, 16, 18, 1)':'rgba(207, 207, 207, 1)'}} className=' h-8 border rounded-sm relative'>
                                 <p className=' pl-1 pt-1'>{product.category}</p>
                                 <button type='button' className=' absolute right-0 top-0.5'><KeyboardArrowDownIcon/></button>
                                 {show.category &&   <div  style={{borderColor:'rgba(207, 207, 207, 1)'}} className=' absolute flex flex-col  bg-white w-full border top-8 px-1 rounded-md'>
-                                                        {category.map((elt, indx) => <button type='button' onClick={()=>{setProduct({...product, category:elt})}} key={indx}>{elt}</button>)}
+                                                        {category.filter(elt => elt !== product.category).map((elt, indx) => <button type='button' onClick={()=>{setProduct({...product, category:elt})}} key={indx}>{elt}</button>)}
                                                     </div>}
                             </div>
                         </div>
-                        <div className=' flex-1/4'>
+                        <div className=' w-full'>
                             <p>{width > 400?'Sub-Category':'S.Category'}</p>
-                            <div onClick={(e)=>{e.stopPropagation(); setShow({...show, subproduct:!show.subproduct})}} style={{borderColor:show.subproduct?'rgba(194, 16, 18, 1)':'rgba(207, 207, 207, 1)'}} className='h-8 border rounded-sm relative'>
+                            <div onClick={(e)=>{e.stopPropagation(); setShow({...show, weight:false, category:false, subproduct:!show.subproduct})}} style={{borderColor:show.subproduct?'rgba(194, 16, 18, 1)':'rgba(207, 207, 207, 1)'}} className='h-8 border rounded-sm relative'>
                                 <p className=' pl-1 pt-1'>{product.subCategory}</p>
                                 <button type='button' className=' absolute right-0 top-0.5'><KeyboardArrowDownIcon/></button>
                                 {show.subproduct &&   <div  style={{borderColor:'rgba(207, 207, 207, 1)'}} className=' absolute flex flex-col z-20  bg-white w-full border top-8 px-1 rounded-md'>
@@ -91,24 +89,24 @@ function AddProduct() {
                                                     </div>}
                             </div>
                         </div>
-                        <div className=' flex-1/4'>
+                        <div className=' w-full'>
                             <p>Quantity</p>
 
-                            <input className=' w-full border rounded-md h-8  ' type={width > 650? 'text':'number'} style={{borderColor:'rgba(207, 207, 207, 1)', outlineColor:'rgba(194, 16, 18, 1)'}} value={product.quantity} onChange={(e) => setProduct({...product, quantity:e.target.value})}/>
+                            <input className=' w-full border rounded-md h-8  px-2' type={width > 650? 'text':'number'} style={{borderColor:'rgba(207, 207, 207, 1)', outlineColor:'rgba(194, 16, 18, 1)'}} value={product.quantity} onChange={(e) => setProduct({...product, quantity:e.target.value})}/>
                         </div>
                     </div>
-                    <div className=' flex flex-row w-full gap-3'>
-                        <div className=' flex-1/2'>
+                    <div className=' flex flex-row w-full gap-3 justify-between'>
+                        <div className=' w-full'>
                             <p>Name</p>
                            <input type='text'  value={product.name} onChange={(e)=>setProduct({...product, name:e.target.value})} style={{borderColor:'rgba(207, 207, 207, 1)', outlineColor:'rgba(194, 16, 18, 1)'}} className=' border w-full h-8 rounded-md pl-1'/>
                         </div>
-                        <div className=' flex-1/4'>
+                        <div className=' w-full'>
                             <p>Price</p>
                             <input type={width > 650? 'text':'number'} value={product.price} onChange={(e)=>setProduct({...product, price:e.target.value})} style={{borderColor:'rgba(207, 207, 207, 1)',  outlineColor:'rgba(194, 16, 18, 1)'}} className=' border w-full h-8 rounded-md  pl-1'/>
                         </div>
-                        <div className=' flex-1/4'>
+                        <div className=' w-full'>
                             <p>Weight</p>
-                            <div onClick={(e)=>{e.stopPropagation(); setShow({...show, weight:!show.weight})}} style={{borderColor:show.weight?'rgba(194, 16, 18, 1)':'rgba(207, 207, 207, 1)'}} className=' h-8 border rounded-sm relative'>
+                            <div onClick={(e)=>{e.stopPropagation(); setShow({...show, category:false, subproduct:false, weight:!show.weight})}} style={{borderColor:show.weight?'rgba(194, 16, 18, 1)':'rgba(207, 207, 207, 1)'}} className=' h-8 border rounded-sm relative'>
                             <p className=' pl-1 pt-1'>{product.weight}</p>
                             <button type='button' className=' absolute right-0 top-0.5'><KeyboardArrowDownIcon/></button>
                             {show.weight &&   <div  style={{borderColor:'rgba(207, 207, 207, 1)'}} className=' absolute flex flex-col  bg-white w-full border top-8 px-1 rounded-md'>
