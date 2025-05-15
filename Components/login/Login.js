@@ -24,7 +24,7 @@ function Login({getAuthenticated}) {
     .finally(()=>setPending(false))
   }
   return (
-    <div className=' w-screen h-screen flex  justify-center'>
+    <div className=' w-screen h-screen flex  justify-center overflow-hidden'>
       <div className={`w-5/6 lg:w-1/5 mt-20`}>
         <div className=' flex justify-center'>
           <div className='flex flex-row items-center gap-4 '>
