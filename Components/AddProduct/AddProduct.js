@@ -15,7 +15,7 @@ function AddProduct() {
     const [product, setProduct] = useState({category:'',subCategory:'', quantity:'', name:'', price:'', weight:'', description:'', mainImage:'', descriptionImage:'' })
     const [show, setShow]=useState({category:false, subproduct:false, weight:false})
     const [success, setSuccess] = useState(false)
-    const SubCategories = product.category ? (product.category === category[0]? ['Fruits', 'Vegetable', 'Seasonal'] : ['Root', 'Green Banana', 'Beams']) : []
+    const SubCategories = product.category ? (product.category === category[0]? ['Fruits', 'Vegetable', 'Seasonal'] : ['Root', 'Green Banana', 'Bean']) : []
     const validProduct =  product.category && product.subCategory && product.quantity && product.name && product.price && product.weight && product.description && product.mainImage &&  product.descriptionImage
     const handleOnclickContainer = () => {
         if(show.category || show.subproduct || show.quantity || show.weight){
