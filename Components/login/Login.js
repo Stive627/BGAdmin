@@ -31,7 +31,7 @@ function Login({getAuthenticated}) {
           <div className=' flex justify-center'>
             <div className='flex flex-row items-center gap-4 '>
               <Image width={40} height={40} alt='logo' src={'https://blackgold-bucket.s3.ap-south-1.amazonaws.com/logoAnim.png'}/>
-              <p className='font-bold text-[20px]'>Black Gold Admin</p>
+              <p className='font-bold text-[24px]'>Black Gold Admin</p>
             </div>
           </div>
           <p className=' text-center text-[20px] font-bold my-9'>Login to continue</p>
