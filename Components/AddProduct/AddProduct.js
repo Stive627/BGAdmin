@@ -47,17 +47,16 @@ function AddProduct() {
         formData.append('newPrice', product.price)
         formData.append('unit', product.weight)
         descriptionImages.forEach(element => {
-        formData.append('descriptionImage', element)
+        formData.append('descriptionImages', element)
         });
         formData.append('category', product.category)
         formData.append('subCategory', product.subCategory)
         formData.append('quantity', product.quantity)
         formData.append('description', product.description)
         axios({url:fetchLink('products/add'), data:formData, method:'POST'})
-        .then((value) => {console.log(value.data); handleAnim()})
+        .then((value) => {console.log(value.data); handleAnim(); handleCancel()})
         .catch((err) => {console.log(err.response.data)})
         .finally(()=> setLoading(false))
-        handleAnim()
     }
   return (
     <div className='w-screen h-screen text-black' style={{backgroundColor:'rgba(217, 217, 217, 1)'}}>
