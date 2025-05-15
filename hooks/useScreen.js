@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
 
 export function useScreen(){    
-    const [width, setWidth] = useState(0)
+    const [dim, setDim] = useState({width:0, height:0})
     useEffect(()=>{
-        setWidth(window.innerWidth)
+        setDim({...dim, width:window.innerWidth, height:window.innerHeight})
         function handleWidth(){
-            setWidth(window.innerWidth)
+            setDim({...dim, width:window.innerWidth, height:window.innerHeight})
         }
         window.addEventListener('resize', handleWidth)
         return () => window.removeEventListener('resize', handleWidth)
-    },[width])
-    return width 
+    },[])
+    return dim 
 }

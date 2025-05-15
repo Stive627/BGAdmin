@@ -10,7 +10,7 @@ import Toast from '../Toast';
 function AddProduct() {
     const category = ['Fresh Farm', 'Starchy Food']
     const Weights = ['100g', '250g', '500g', '1kg', '2kg']
-    const width = useScreen()
+    const {width} = useScreen()
     const [loading, setLoading] = useState(false)
     const [product, setProduct] = useState({category:'',subCategory:'', quantity:'', name:'', price:'', weight:'', description:'', mainImage:'', descriptionImage:'' })
     const [show, setShow]=useState({category:false, subproduct:false, weight:false})
