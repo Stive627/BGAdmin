@@ -21,7 +21,7 @@ function RecoverUI({condition, handleClose}) {
 
     if(condition){ 
         return (
-            <div style={{backgroundColor:'rgba(217, 217, 217, 0.3)'}} className=' absolute top-0 z-10 bg-black w-screen h-screen overflow-hidden'>
+            <div style={{backgroundColor:'rgba(217, 217, 217, 0.5)'}} className=' absolute top-0 z-10 bg-black w-screen h-screen overflow-hidden'>
                 <div className='w-full h-full' onClick={localClose}>
                     <div ref={recoverRef} onClick={(e)=>e.stopPropagation()} className='fixed recover bottom-0 bg-white  w-full rounded-t-2xl shadow-2xl'>
                         <p className=' text-center font-bold text-[21px] py-3'>Recover Password</p>
