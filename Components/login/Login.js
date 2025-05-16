@@ -5,11 +5,13 @@ import axios from 'axios'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import Confetti from 'react-confetti'
+import RecoverUI from './RecoverUI'
 
 function Login({getAuthenticated}) {
   const [admin, setAdmin] = useState({email:'', password:''})
   const [pending, setPending] = useState(false)
   const [status, setStatus] = useState({success:false, faillure:false})
+  const [recover, setRecover] = useState(false)
   const {width, height} = useScreen()
   const validForm = admin.email && admin.password
   function handleSubmit(e){
@@ -22,6 +24,9 @@ function Login({getAuthenticated}) {
     .then(val => {console.log(val.data); getAuthenticated(val.data); setStatus({...status, success:true})})
     .catch(err => {console.log(err.response.data); setStatus({...status, faillure:true})})
     .finally(()=>setPending(false))
+  }
+  function handleClose(){
+    setRecover(false)
   }
   return (
     <div className='relative h-screen w-screen'>
@@ -40,13 +45,14 @@ function Login({getAuthenticated}) {
             <input onFocus={()=>setStatus({...status, faillure:false})} style={{borderColor:'rgba(0, 0, 0, 0.58)', outlineColor:'rgba(214, 15, 18, 1)'}} className='border w-full py-2 px-1 rounded-md'  value={admin.password} onChange={e => setAdmin({...admin, password:e.target.value})} placeholder='Password'/>
             <div className=' flex justify-center'><button disabled={!validForm} style={{backgroundColor:validForm?(pending?'rgba(214, 15, 18, 0.4)':'rgba(214, 15, 18, 1)'):'rgba(214, 15, 18, 0.4)'}} type='submit' className=' text-white w-1/3 rounded-md py-1 px-2'>Login</button></div>
           </form>
-          <p className=' text-center mt-7'>Forgot password? <span><button style={{color:'rgba(214, 15, 18, 1)'}} className=' underline'>Recover</button></span></p>
+          <p className=' text-center mt-7'>Forgot password? <span><button onClick={()=>setRecover(true)} style={{color:'rgba(214, 15, 18, 1)'}} className=' underline'>Recover</button></span></p>
         {status.success && <Confetti width={width} height={height}/>}
         </div>
       </div>
-      <div className='fixed z-30 bottom-0  w-full'>
+      <div className='fixed bottom-0  w-full'>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#d60f12" fillOpacity="1" d="M0,128L60,133.3C120,139,240,149,360,133.3C480,117,600,75,720,96C840,117,960,203,1080,229.3C1200,256,1320,224,1380,208L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
       </div>
+      <RecoverUI condition={recover} handleClose={handleClose}/>
     </div>
 
   )
