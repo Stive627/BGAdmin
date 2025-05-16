@@ -25,7 +25,7 @@ function Login({getAuthenticated}) {
   }
   return (
     <div className='relative w-screen h-screen flex justify-center'>
-      <div className={`w-5/6 lg:w-1/5 mt-20`}>
+      <div className={`w-5/6 lg:w-1/5 `}>
         <div className=' flex justify-center'>
           <div className='flex flex-row items-center gap-4 '>
             <Image width={40} height={40} alt='logo' src={'https://blackgold-bucket.s3.ap-south-1.amazonaws.com/logoAnim.png'}/>
