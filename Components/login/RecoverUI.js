@@ -5,9 +5,10 @@ function RecoverUI({condition, handleClose}) {
     const recoverRef = useRef()
 
     useEffect(()=>{
+        const width = window.innerWidth
         if(recoverRef.current){
             setTimeout(() => {
-                recoverRef.current.style.height = '200px'
+                recoverRef.current.style.height = width > 600 ? '180px':'200px'
             }, 1);
             
         }
