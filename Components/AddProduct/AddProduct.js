@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Toast from '../Toast';
 
 function AddProduct() {
-    const category = ['Fresh Farm', 'Starchy Food']
+    const category = ['Farm Fresh', 'Starchy Food']
     const Weights = ['100g', '250g', '500g', '1kg', '2kg']
     const {width} = useScreen()
     const [loading, setLoading] = useState(false)
